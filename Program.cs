@@ -14,8 +14,8 @@ namespace Asm {
 		public static unsafe void TestAsm() {
 			// C# using StdCall on windows and Cdecl on linux
 			// this code uses StdCall calling convention
-			// calling conventions:									https://docs.microsoft.com/en-us/cpp/build/x64-calling-convention?view=msvc-160
-			// good assembler:											https://defuse.ca/online-x86-assembler.htm
+			// calling conventions:			https://docs.microsoft.com/en-us/cpp/build/x64-calling-convention?view=msvc-160
+			// good assembler:			https://defuse.ca/online-x86-assembler.htm
 			// good compiler (use it for asm gen):	https://godbolt.org/z/bqjeejGKM
 			
 			// you can add using keyword for automatic dispose
@@ -40,14 +40,14 @@ namespace Asm {
 				
 				//!						x64
 				// prolog
-				src.Push(0x55);										// push rbp
-				src.Push(0x57);										// push rdi
-				src.Push(0x56);										// push rsi
+				src.Push(0x55);						// push rbp
+				src.Push(0x57);						// push rdi
+				src.Push(0x56);						// push rsi
 				src.Push(0x48, 0x8b, 0xec);				// mov rbp,rsp
 			
 				// body
-				src.Push(0x89, 0xc8);							// mov eax,ecx
-				src.Push(0x01, 0xd0);							// add eax,edx
+				src.Push(0x89, 0xc8);					// mov eax,ecx
+				src.Push(0x01, 0xd0);					// add eax,edx
 				src.Push(0x44, 0x01, 0xc0);				// add eax,r8d
 				src.Push(0x44, 0x01, 0xc8);				// add eax,r9d
 				src.Push(0x03, 0x45, 0x40);				// add eax,[ebp+0x40]
@@ -57,23 +57,23 @@ namespace Asm {
 				src.Push(0x03, 0x45, 0x60);				// add eax,[ebp+0x60]
 			
 				// epilogue
-				src.Push(0x5e);							// pop rsi
-				src.Push(0x5f);							// pop rdi
-				src.Push(0x5d);							// pop rbp
-				src.Push(0xc3);							// ret
+				src.Push(0x5e);						// pop rsi
+				src.Push(0x5f);						// pop rdi
+				src.Push(0x5d);						// pop rbp
+				src.Push(0xc3);						// ret
 			}
 			else 
 			{
 				//!						x86
 				// prolog
-				src.Push(0x55);								// push ebp
+				src.Push(0x55);						// push ebp
 				src.Push(0x89, 0xe5);					// mov ebp,esp
-				src.Push(0x57);								// push edi
-				src.Push(0x56);								// push esi
+				src.Push(0x57);						// push edi
+				src.Push(0x56);						// push esi
 
 				// body
-				src.Push(0x89, 0xc8);							// mov eax,ecx
-				src.Push(0x01, 0xd0);							// add eax,edx
+				src.Push(0x89, 0xc8);					// mov eax,ecx
+				src.Push(0x01, 0xd0);					// add eax,edx
 				src.Push(0x03, 0x45, 0x08);				// add eax,ebp+8
 				src.Push(0x03, 0x45, 0x0c);				// add eax,ebp+12
 				src.Push(0x03, 0x45, 0x10);				// add eax,ebp+16
@@ -83,9 +83,9 @@ namespace Asm {
 				src.Push(0x03, 0x45, 0x20);				// add eax,ebp+32
 			
 				// epilogue
-				src.Push(0x5e);										// pop esi
-				src.Push(0x5f);										// pop edi
-				src.Push(0x5d);										// pop ebp
+				src.Push(0x5e);						// pop esi
+				src.Push(0x5f);						// pop edi
+				src.Push(0x5d);						// pop ebp
 				src.Push(0xc2, 0x1c, 0x00);				// ret 28
 			}
 			
